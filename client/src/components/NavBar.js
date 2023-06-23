@@ -5,11 +5,19 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import { NavLink } from "react-router-dom";
-import { SHOP_ROUTE } from "../utils/consts";
+import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from "../utils/consts";
 import { observer } from "mobx-react-lite";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = observer(() => {
   const { user } = useContext(Context);
+  const navigate = useNavigate();
+
+  const logOut = () => {
+    user.setUser({});
+    user.setIsAuth(false);
+    localStorage.setItem("token", "");
+  };
   return (
     <Navbar bg="dark" data-bs-theme="dark">
       <Container>
@@ -18,14 +26,30 @@ const NavBar = observer(() => {
         </NavLink>
         <Nav className="ml-auto">
           {user.user.role === "ADMIN" && (
-            <Button variant="outline-light">Admin</Button>
+            <Button
+              variant="outline-light"
+              onClick={() => navigate(ADMIN_ROUTE)}
+            >
+              Admin
+            </Button>
           )}
           {user.isAuth && (
-            <Button variant="outline-light" style={{ marginLeft: "4px" }}>
+            <Button
+              variant="outline-light"
+              style={{ marginLeft: "4px" }}
+              onClick={() => logOut()}
+            >
               Exit
             </Button>
           )}
-          {!user.isAuth && <Button variant="outline-light">Auth</Button>}
+          {!user.isAuth && (
+            <Button
+              variant="outline-light"
+              onClick={() => navigate(LOGIN_ROUTE)}
+            >
+              Auth
+            </Button>
+          )}
         </Nav>
       </Container>
     </Navbar>

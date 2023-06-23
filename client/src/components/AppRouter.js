@@ -3,8 +3,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { authRoutes, publicRoutes, adminRoutes } from "../routes";
 import { SHOP_ROUTE } from "../utils/consts";
 import { Context } from "../index";
+import { observer } from "mobx-react-lite";
 
-const AppRouter = () => {
+const AppRouter = observer(() => {
   const { user } = useContext(Context);
   return (
     <Routes>
@@ -15,13 +16,13 @@ const AppRouter = () => {
       {publicRoutes.map(({ path, Component }) => (
         <Route key={path} path={path} element={<Component />} exact />
       ))}
-      {user.role === "ADMIN" &&
+      {user.user.role === "ADMIN" &&
         adminRoutes.map(({ path, Component }) => (
           <Route key={path} path={path} element={<Component />} exact />
         ))}
       <Route path="*" element={<Navigate to={SHOP_ROUTE} replace />} />
     </Routes>
   );
-};
+});
 
 export default AppRouter;

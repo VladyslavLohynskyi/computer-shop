@@ -14,11 +14,13 @@ class UserController {
     console.log(process.env.SECRET_KEY);
     const { email, password, role } = req.body;
     if (!email || !password) {
-      return res.json({ message: "Incorrect email or password" });
+      return res.status(401).json({ message: "Incorrect email or password" });
     }
     const candidate = await User.findOne({ where: { email } });
     if (candidate) {
-      return res.json({ message: "User with this email has already exist" });
+      return res
+        .status(401)
+        .json({ message: "User with this email has already exist" });
     }
     const hashPassword = await bcrypt.hash(password, 5);
     const user = await User.create({ email, role, password: hashPassword });
@@ -30,11 +32,13 @@ class UserController {
     const { email, password } = req.body;
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      return res.json({ message: "User with this email is not exist" });
+      return res
+        .status(401)
+        .json({ message: "User with this email is not exist" });
     }
     let comparePassword = bcrypt.compareSync(password, user.password);
     if (!comparePassword) {
-      return res.json({ message: "Incorrect Password" });
+      return res.status(401).json({ message: "Incorrect Password" });
     }
     const token = generateJwt(user.id, user.email, user.role);
     return res.json({ token });
