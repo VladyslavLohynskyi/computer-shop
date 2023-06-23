@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { authRoutes, publicRoutes, adminRoutes } from "../routes";
 import { SHOP_ROUTE } from "../utils/consts";
+import { Context } from "../index";
 
 const AppRouter = () => {
-  const user = { isAuth: true, role: "ADMIN" };
+  const { user } = useContext(Context);
   return (
     <Routes>
       {user.isAuth &&
