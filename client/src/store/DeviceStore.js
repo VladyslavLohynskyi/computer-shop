@@ -2,54 +2,8 @@ import { makeAutoObservable } from "mobx";
 
 export default class DeviceStore {
   constructor() {
-    this._types = [
-      {
-        id: 1,
-        name: "computer",
-      },
-      {
-        id: 2,
-        name: "mouse",
-      },
-    ];
-    this._devices = [
-      {
-        id: 1,
-        name: "lux deatheader",
-        price: 150,
-        img: "https://content.rozetka.com.ua/goods/images/big/21226006.jpg",
-      },
-      {
-        id: 2,
-        name: "lux deatheader",
-        price: 150,
-        img: "https://content.rozetka.com.ua/goods/images/big/21226006.jpg",
-      },
-      {
-        id: 3,
-        name: "lux deatheader",
-        price: 150,
-        img: "https://content.rozetka.com.ua/goods/images/big/21226006.jpg",
-      },
-      {
-        id: 4,
-        name: "lux deatheader",
-        price: 150,
-        img: "https://content.rozetka.com.ua/goods/images/big/21226006.jpg",
-      },
-      {
-        id: 5,
-        name: "lux deatheader",
-        price: 150,
-        img: "https://content.rozetka.com.ua/goods/images/big/21226006.jpg",
-      },
-      {
-        id: 6,
-        name: "lux deatheader",
-        price: 150,
-        img: "https://content.rozetka.com.ua/goods/images/big/21226006.jpg",
-      },
-    ];
+    this._types = [];
+    this._devices = [];
     makeAutoObservable(this);
   }
 
@@ -58,7 +12,7 @@ export default class DeviceStore {
   }
 
   setDevices(devices) {
-    this._devices = devices;
+    this._devices = [...devices];
   }
 
   get types() {

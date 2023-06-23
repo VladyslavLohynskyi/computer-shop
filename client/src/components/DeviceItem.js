@@ -16,7 +16,7 @@ const DeviceItem = ({ device }) => {
         <div style={{ width: "100%", height: "250px" }}>
           <Image
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            src={device.img}
+            src={HTTP_ADDRESS + device.img}
           />
         </div>
         <div className="text-black-50 mt-1 d-flex justify-content-between align-items-center">
